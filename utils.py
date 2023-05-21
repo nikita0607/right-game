@@ -1,31 +1,28 @@
 import pygame
 
-BASE_WIDTH = 1000
-BASE_HEIGHT = 500
-
-widthk = 0
-heightk = 0
-
 
 def init():
-    global widthk
-    global heightk
+    global width
+    global height
 
-    widthk = pygame.display.get_surface().get_width()/BASE_WIDTH
-    heightk = pygame.display.get_surface().get_height()/BASE_HEIGHT
+    width = pygame.display.get_surface().get_width()
+    height = pygame.display.get_surface().get_height()
 
 
-def open_model(file_name: str) -> pygame.Surface:
-    return pygame.image.load(f'models/{file_name}')
+def open_model(file_name: str, width=None, height=None) -> pygame.Surface:
+    surface = pygame.image.load(f'models/{file_name}')
+    s = (width or surface.get_width(), height or surface.get_height())
+    surface = pygame.transform.scale(surface, s)
+    return surface
 
 
 def oemc(a, b):
-    return int(widthk * a), int(heightk * b)
+    return int(width * a / 100), int(height * b / 100)
 
 
 def oemw(a):
-    return int(widthk * a)
+    return int(width * a / 100)
 
 
 def oemh(b):
-    return int(heightk * b)
+    return int(height * b / 100)

@@ -7,14 +7,14 @@ from typing import Union
 
 
 class Widget:
-    def __init__(self, window: window.Window, id: str, x: int, y: int, width: int=None, height: int=None, color=(0, 0, 0), img=None):
+    def __init__(self, window: window.Window, id: str, x: int, y: int, width: int = 0, height: int = 0, color=(0, 0, 0), img=None):
         self.x = x
         self.y = y
         self.id = id
 
         if img:
             if isinstance(img, str):
-                self.img = utils.open_model(img)
+                self.img = utils.open_model(img, width=width)
             else:
                 self.img = img
         else:
@@ -25,6 +25,8 @@ class Widget:
 
         self.color = color
 
+        print(self.img)
+
         self.window = window
 
     def draw(self):
@@ -32,6 +34,13 @@ class Widget:
 
     def update(self):
         pass
+
+    def move_center(self, x, y):
+        self.x = int(x-(self.width/2))
+        self.y = int(y-(self.height/2))
+
+    def move_center2cords(self):
+        self.move_center(self.x, self.y)
 
     def is_clicked(self, xmouse, ymouse):
         return (self.x <= xmouse <= self.x+self.width) and (self.y <= ymouse <= self.y + self.height)
