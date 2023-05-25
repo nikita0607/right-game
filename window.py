@@ -1,6 +1,8 @@
 import pygame as pg
 import os
 
+from utils import oemh
+
 
 class SceneManager:
     def __init__(self):
@@ -9,7 +11,6 @@ class SceneManager:
         for name in os.listdir():
             if name.startswith('scene_'):
                 self.scenes[name.replace('scene_', '')] = __import__(name)
-        print(self.scenes)
 
     def get_scene(self, window: 'Window', name):
         return self.scenes[name].Manager
@@ -33,6 +34,21 @@ class Window:
 
     def clear_widgets(self):
         self.widgets = []
+
+    def del_widget(self, widget) -> bool:
+        if widget in self.widgets:
+            self.widgets.remove(widget)
+            return True
+        return False
+
+    def del_widgets_by_id(self, id: str):
+        i = 0
+        while i < len(self.widgets):
+            w = self.widgets[i]
+            if w.id == id:
+                self.widgets.remove(w)
+            else:
+                i += 1
 
     def load_scene(self, scene_name):
         self.scene = SceneManager().get_scene(self, scene_name)
@@ -68,6 +84,6 @@ class Window:
                     w.click()
 
             pg.display.update()
-            clock.tick(60)
+            clock.tick(300)
 
         pg.quit()
