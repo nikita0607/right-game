@@ -17,7 +17,7 @@ class Manager:
 
     def do_question(self, quest_id):
         window = self.window
-        with open('./scene_game/tasks.json') as file:
+        with open('./tasks.json') as file:
             questions = json.load(file)
 
         quest_id = quest_id % len(questions)
