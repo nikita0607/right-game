@@ -1,1 +1,1 @@
-./venv/bin/python3 main.py
+%cd%\env\SCripts\python.exe main.py

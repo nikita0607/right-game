@@ -1,1 +1,1 @@
-./venv/bin/python3 add_question.py
+%cd%/env/Scripts/python add_question.py
